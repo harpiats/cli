@@ -1,0 +1,5 @@
+@layout("default", { title: "Edit" })
+
+@block('body')
+  <h1>Edit</h1>  
+@endblock

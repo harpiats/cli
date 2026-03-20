@@ -1,0 +1,43 @@
+{
+  "name": "@harpia/cli",
+  "bin": {
+    "harpia": "./bin/harpia.ts"
+  },
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "type": "module",
+  "author": {
+    "name": "Lucas Nathan",
+    "url": "https://github.com/lucasnjsilva"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harpiats/cli"
+  },
+  "homepage": "https://github.com/harpiats/cli",
+  "description": "CLI for Harpia Framework",
+  "keywords": [
+    "harpia",
+    "bun",
+    "framework",
+    "web",
+    "api",
+    "harpia dev",
+    "harpiats",
+    "harpia framework",
+    "@harpia",
+    "@harpia/cli"
+  ],
+  "dependencies": {
+    "@harpia/common": "workspace:*",
+    "@harpia/core": "workspace:*",
+    "@inquirer/prompts": "^8.3.2",
+    "inflection": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

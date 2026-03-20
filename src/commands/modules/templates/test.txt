@@ -1,0 +1,30 @@
+import { afterEach, describe, expect, test } from "bun:test";
+import { TestCleaner } from "@harpia/common";
+import { TestClient } from "harpiats";
+import { app } from "start/server";
+
+const client = new TestClient(app);
+const cleaner = new TestCleaner({});
+
+describe("[METHOD] /{{ pluralize(module) }} - {{ pascalCase(module) }} endpoint", () => {
+  test("describe the test", async () => {
+    // const request = await client.get("/").execute();
+    // const response = await request.json();
+
+    // cleaner.register("Model", "id");
+    
+    // expect(request.status).toBe(200);
+    // expect(response).toBeObject();
+    // expect(response).toEqual(
+    //   expect.objectContaining({
+    //     status: "OK",
+    //     result: expect.objectContaining({
+    //       // expect properties
+    //     }),
+    //     error: null,
+    //   }),
+    // );
+  });
+});
+
+afterEach(async () => await cleaner.clean());

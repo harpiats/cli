@@ -1,0 +1,11 @@
+import type { Request, Response } from "harpiats";
+
+import { ApiResponse } from "@harpia/common";
+
+export async function create(request: Request, response: Response) {
+  try {
+    await response.module("{{ kebabCase(name) }}").render("create", { title: "Create {{ singularize(pascalCase(name)) }}" });
+  } catch (error: any) {
+    return ApiResponse.error(response, error);
+  }
+}
