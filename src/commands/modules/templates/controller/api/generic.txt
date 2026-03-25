@@ -1,4 +1,4 @@
-import type { Request, Response } from "harpiats";
+import type { Request, Response } from "@harpia/core";
 
 import { ApiResponse } from "@harpia/common";
 

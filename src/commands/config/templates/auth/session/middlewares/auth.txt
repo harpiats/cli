@@ -1,5 +1,5 @@
 import { session } from "app/config/session";
-import type { NextFunction, Request, Response } from "harpiats";
+import type { NextFunction, Request, Response } from "@harpia/core";
 
 export const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
   const sessionExists = await session.fromRequest(req);

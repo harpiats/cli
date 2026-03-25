@@ -1,5 +1,4 @@
-import { MemoryStore } from "harpiats/memory-store";
-import { Session } from "harpiats/session";
+import { MemoryStore, Session } from "@harpia/core";
 import { RedisStore } from "./redis";
 
 export const session = new Session({

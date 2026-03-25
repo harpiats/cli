@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { Utils, colorize } from "@harpia/common";
-import type { TemplateEngine } from "harpiats/template-engine";
+import type { TemplateEngine } from "@harpia/core";
 
 type Mode = "api" | "fullstack";
 

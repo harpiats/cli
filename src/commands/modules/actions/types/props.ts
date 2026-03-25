@@ -1,4 +1,4 @@
-import type { TemplateEngine } from "harpiats/template-engine";
+import type { TemplateEngine } from "@harpia/core";
 
 export type Props = {
   engine: TemplateEngine;

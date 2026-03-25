@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test } from "bun:test";
 import { TestCleaner } from "@harpia/common";
-import { TestClient } from "harpiats";
+import { TestClient } from "@harpia/core";
 import { app } from "start/server";
 
 const client = new TestClient(app);

@@ -29,8 +29,8 @@
     "@harpia/cli"
   ],
   "dependencies": {
-    "@harpia/common": "workspace:*",
-    "@harpia/core": "workspace:*",
+    "@harpia/common": "^1.0.0",
+    "@harpia/core": "^1.0.0",
     "@inquirer/prompts": "^8.3.2",
     "inflection": "^3.0.2"
   },
