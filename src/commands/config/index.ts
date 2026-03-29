@@ -21,4 +21,12 @@ export const Generator = async () => {
   await generators[option as keyof typeof generators](engine);
 };
 
-await Generator();
+try {
+  await Generator();
+} catch (error: any) {
+  if (error.name === "ExitPromptError") {
+    process.exit(1);
+  }
+  console.error(error);
+  process.exit(1);
+}

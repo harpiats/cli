@@ -152,7 +152,7 @@ export const run = (script: string, args: string[]): void => {
         execCommand(`${baseCommand} modules`);
       } else if (args.length === 1) {
         execCommand(`${baseCommand} modules/${moduleDir}`);
-      } else if (args.length === 2) {
+      } else if (args.length === 2 && filePath) {
         const fileSuffix = filePath.includes("tests/") ? ".spec.ts" : ".ts";
         execCommand(`${baseCommand} modules/${moduleDir}/${filePath}${fileSuffix}`);
       }
@@ -160,14 +160,7 @@ export const run = (script: string, args: string[]): void => {
 
     generate: () => {
       const generateArgs = args.join(" ");
-
-      if (generateArgs.includes("--config")) {
-        const configName = generateArgs.split("--config")[1].trim();
-
-        execCommand(`clear && bun ${path.join(__dirname, "../src/commands/config/index.ts")} ${configName}`);
-      } else {
-        execCommand(`clear && bun ${path.join(__dirname, "../src/commands/modules/index.ts")} ${generateArgs}`);
-      }
+      execCommand(`clear && bun ${path.join(__dirname, "../src/commands/modules/index.ts")} ${generateArgs}`);
     },
     studio: () => execCommand("prisma studio"),
     seed: () => {
@@ -197,5 +190,10 @@ export const run = (script: string, args: string[]): void => {
 };
 
 const [, , script, ...args] = process.argv;
+
+if (!script) {
+  console.log("No script provided");
+  process.exit(1);
+}
 
 run(script, args);
