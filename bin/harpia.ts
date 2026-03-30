@@ -66,7 +66,7 @@ const testSequential = (targetPath = "modules") => {
   for (const file of testFiles) {
     try {
       execCommand(`bun test ${file}`);
-    } catch (_) { }
+    } catch (_) {}
   }
 };
 

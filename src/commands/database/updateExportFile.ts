@@ -2,9 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { detectModels } from "./detectModels";
 import { generateExports } from "./generateExports";
+import { generateTypeExports } from "./generateTypeExports";
 
 export function updateExportFile(schemaPath: string) {
   const models = detectModels(schemaPath);
+  const typesCode = generateTypeExports(models);
   const exportsCode = generateExports(models);
 
   const exportFilePath = path.join(process.cwd(), "app/database", "index.ts");
@@ -17,8 +19,8 @@ export function updateExportFile(schemaPath: string) {
     return;
   }
 
-  const regex = /export\s+const\s+{[\s\S]*?}\s*=\s*prisma\s*;/s;
-  const newExportsBlock = exportsCode.trim();
+  const regex = /(?:export\s+type\s*{[\s\S]*?}\s*from\s*["']\.\/prisma\/client["'];\s*)?export\s+const\s+{[\s\S]*?}\s*=\s*prisma\s*;/s;
+  const newExportsBlock = `${typesCode}\n\n${exportsCode}`.trim();
 
   const newFileContent = fileContent.replace(regex, newExportsBlock);
 

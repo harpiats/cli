@@ -1,0 +1,17 @@
+import type { Request, Response } from "@harpia/core";
+import { ApiResponse, AppError } from "@harpia/common";
+import { jwt } from "app/config/jwt";
+
+export async function show(request: Request, response: Response) {
+  try {
+    const user = await jwt.fromRequest(request);
+    
+    if (!user) {
+      throw AppError.E_UNAUTHORIZED();
+    }
+
+    return ApiResponse.success(response, user);
+  } catch (error: any) {
+    return ApiResponse.error(response, error);
+  }
+}

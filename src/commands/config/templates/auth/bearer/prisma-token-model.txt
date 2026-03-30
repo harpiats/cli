@@ -1,0 +1,10 @@
+model Token {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  {{ lowerModel }}Id    {{ idType }}      @map("{{ lowerModel }}_id")
+  {{ lowerModel }}      {{ model }}     @relation(fields: [{{ lowerModel }}Id], references: [id], onDelete: Cascade)
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("tokens")
+}

@@ -1,0 +1,7 @@
+export const auth = {
+  provider: "{{ storage }}" as "database" | "redis",
+  jwt: {
+    secret: process.env.JWT_SECRET || "harpia-secret-key-development",
+    expiresIn: "1d",
+  },
+};

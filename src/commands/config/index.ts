@@ -8,6 +8,7 @@ export const Generator = async () => {
 
   const generators = {
     session: handlers.session,
+    bearer: handlers.bearer,
   };
 
   if (!option) {

@@ -4,7 +4,7 @@ import { ApiResponse } from "@harpia/common";
 import { service } from "../services";
 import { validation } from "../validations";
 
-import type { {{ singularize(pascalCase(name)) }} as {{ singularize(pascalCase(name)) }}Type } from "app/database/client";
+import type { {{ singularize(pascalCase(name)) }}Type } from "app/database";
 
 export async function update(request: Request, response: Response) {
   try {

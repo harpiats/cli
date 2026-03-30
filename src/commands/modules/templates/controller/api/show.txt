@@ -3,7 +3,7 @@ import type { Request, Response } from "@harpia/core";
 import { ApiResponse } from "@harpia/common";
 import { service } from "../services";
 
-import type { {{ singularize(pascalCase(name)) }} as {{ singularize(pascalCase(name)) }}Type } from "app/database/client";
+import type { {{ singularize(pascalCase(name)) }}Type } from "app/database";
 
 export async function show(request: Request, response: Response) {
   try {

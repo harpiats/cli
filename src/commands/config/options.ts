@@ -5,6 +5,9 @@ export const getOption = async (defaultOption?: string) => {
 
   return await select({
     message: "What do you want to configure?",
-    choices: [{ name: "Auth Session", value: "session" }],
+    choices: [
+      { name: "Auth Session", value: "session" },
+      { name: "Auth Bearer (JWT)", value: "bearer" },
+    ],
   });
 };

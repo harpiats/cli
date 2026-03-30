@@ -1,0 +1,78 @@
+import JWT, { type SignOptions } from "jsonwebtoken";
+import { auth } from "./auth";
+
+type JwtPayload = {
+  id: {{ idType }};
+  email?: string;
+  name?: string;
+};
+
+export const jwt = {
+  sign: async (payload: JwtPayload, expiresIn: SignOptions["expiresIn"] = auth.jwt.expiresIn as SignOptions["expiresIn"]) => {
+    const token = JWT.sign(payload, auth.jwt.secret, { expiresIn });
+
+    if (auth.provider === "database") {
+      const { Token } = await import("app/database");
+      
+      const expiresAt = new Date();
+      const days = parseInt(String(expiresIn).replace(/\D/g, ""), 10) || 1;
+      expiresAt.setDate(expiresAt.getDate() + days);
+
+      await Token.create({
+        data: {
+          token,
+          expiresAt,
+          {{ lowerModel }}Id: {{ payloadIdParser }},
+        },
+      });
+    } else if (auth.provider === "redis") {
+      const { redis } = (await import("bun")) as any;
+      const days = parseInt(String(expiresIn).replace(/\D/g, ""), 10) || 1;
+      const ttlSeconds = days * 24 * 60 * 60;
+      
+      await redis.set(`token:${token}`, String(payload.id), "EX", ttlSeconds);
+    }
+
+    return token;
+  },
+
+  verify: async (token: string) => {
+    try {
+      const decoded = JWT.verify(token, auth.jwt.secret) as JwtPayload;
+
+      if (auth.provider === "database") {
+        const { Token } = await import("app/database");
+        const tokenExists = await Token.findUnique({ where: { token } });
+        if (!tokenExists) return null;
+      } else if (auth.provider === "redis") {
+        const { redis } = (await import("bun")) as any;
+        const exists = await redis.get(`token:${token}`);
+        if (!exists) return null;
+      }
+
+      return decoded;
+    } catch {
+      return null;
+    }
+  },
+
+  revoke: async (token: string) => {
+    if (auth.provider === "database") {
+      const { Token } = await import("app/database");
+      await Token.deleteMany({ where: { token } });
+    } else if (auth.provider === "redis") {
+      const { redis } = (await import("bun")) as any;
+      await redis.del(`token:${token}`);
+    }
+  },
+
+  fromRequest: async (request: Request) => {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) return null;
+
+    const [, token] = authHeader.split(" ");
+    if (!token) return null;
+
+    return await jwt.verify(token);
+  },
+};

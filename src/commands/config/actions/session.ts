@@ -1,8 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { config } from "node:process";
-import { Utils, colorize } from "@harpia/common";
+import { colorize } from "@harpia/common";
 import type { TemplateEngine } from "@harpia/core";
 
 export type Props = {

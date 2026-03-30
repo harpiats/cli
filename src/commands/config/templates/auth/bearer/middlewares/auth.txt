@@ -1,0 +1,18 @@
+import { AppError, ApiResponse } from "@harpia/common";
+import { jwt } from "../config/jwt";
+
+import type { NextFunction, Request, Response } from "@harpia/core";
+
+export const isAuthenticated = async (request: Request, response: Response, next: NextFunction) => {
+  try {
+    const decoded = await jwt.fromRequest(request);
+
+    if (!decoded) {
+      return ApiResponse.error(response, AppError.E_UNAUTHORIZED());
+    }
+
+    next();
+  } catch (error: any) {
+    return ApiResponse.error(response, error);
+  }
+};

@@ -1,0 +1,20 @@
+import type { Request, Response } from "@harpia/core";
+import { ApiResponse } from "@harpia/common";
+import { jwt } from "app/config/jwt";
+
+export async function destroy(request: Request, response: Response) {
+  try {
+    const authHeader = request.headers.get("authorization");
+    
+    if (authHeader) {
+      const [, token] = authHeader.split(" ");
+      if (token) {
+        await jwt.revoke(token);
+      }
+    }
+
+    return ApiResponse.success(response, { message: "Logged out successfully" });
+  } catch (error: any) {
+    return ApiResponse.error(response, error);
+  }
+}

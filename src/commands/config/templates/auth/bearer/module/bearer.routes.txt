@@ -1,0 +1,9 @@
+import { Router } from "@harpia/core";
+import { isAuthenticated } from "app/middlewares/auth";
+import { controllers } from "./controllers";
+
+export const authRoutes = new Router("/auth");
+
+authRoutes.post("/", controllers.store);
+authRoutes.get("/", isAuthenticated, controllers.show);
+authRoutes.delete("/", isAuthenticated, controllers.destroy);

@@ -4,6 +4,8 @@ import { engine } from "./setup";
 import { handlers as configHandlers } from "../config/handlers";
 import { getOption as getConfigOption } from "../config/options";
 
+import { engine as configEngine } from "../config/setup";
+
 export const Generator = async () => {
   const cliOption = process.argv[2];
   const option = await getOption(cliOption);
@@ -21,13 +23,14 @@ export const Generator = async () => {
 
     const configGenerators = {
       session: configHandlers.session,
+      bearer: configHandlers.bearer,
     };
 
     if (!Object.keys(configGenerators).includes(configOption)) {
       return console.error("Invalid option.");
     }
 
-    await configGenerators[configOption as keyof typeof configGenerators](engine);
+    await configGenerators[configOption as keyof typeof configGenerators](configEngine);
     return;
   }
 
