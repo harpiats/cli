@@ -1,0 +1,49 @@
+import JWT, { type SignOptions } from "jsonwebtoken";
+import { auth } from "./auth";
+import { RedisStore } from "./redis";
+
+type JwtPayload = {
+  id: {{ idType }};
+  email?: string;
+  name?: string;
+};
+
+const redisStore = new RedisStore(2);
+
+export const jwt = {
+  sign: async (payload: JwtPayload, expiresIn: SignOptions["expiresIn"] = auth.jwt.expiresIn as SignOptions["expiresIn"]) => {
+    const token = JWT.sign(payload, auth.jwt.secret, { expiresIn });
+    const days = parseInt(String(expiresIn).replace(/\D/g, ""), 10) || 1;
+    const ttlSeconds = days * 24 * 60 * 60;
+
+    await redisStore.setEx(`token:${token}`, String(payload.id), ttlSeconds);
+
+    return token;
+  },
+
+  verify: async (token: string) => {
+    try {
+      const decoded = JWT.verify(token, auth.jwt.secret) as JwtPayload;
+      const exists = await redisStore.get(`token:${token}`);
+      if (!exists) return null;
+
+      return decoded;
+    } catch {
+      return null;
+    }
+  },
+
+  revoke: async (token: string) => {
+    await redisStore.delete(`token:${token}`);
+  },
+
+  fromRequest: async (request: Request) => {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) return null;
+
+    const [, token] = authHeader.split(" ");
+    if (!token) return null;
+
+    return await jwt.verify(token);
+  },
+};

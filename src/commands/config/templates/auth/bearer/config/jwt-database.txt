@@ -1,0 +1,55 @@
+import JWT, { type SignOptions } from "jsonwebtoken";
+import { auth } from "./auth";
+import { Token } from "app/database";
+
+type JwtPayload = {
+  id: {{ idType }};
+  email?: string;
+  name?: string;
+};
+
+export const jwt = {
+  sign: async (payload: JwtPayload, expiresIn: SignOptions["expiresIn"] = auth.jwt.expiresIn as SignOptions["expiresIn"]) => {
+    const token = JWT.sign(payload, auth.jwt.secret, { expiresIn });
+    const expiresAt = new Date();
+    const days = parseInt(String(expiresIn).replace(/\D/g, ""), 10) || 1;
+
+    expiresAt.setDate(expiresAt.getDate() + days);
+
+    await Token.create({
+      data: {
+        token,
+        expiresAt,
+        {{ lowerModel }}Id: {{ payloadIdParser }},
+      },
+    });
+
+    return token;
+  },
+
+  verify: async (token: string) => {
+    try {
+      const decoded = JWT.verify(token, auth.jwt.secret) as JwtPayload;
+      const tokenExists = await Token.findUnique({ where: { token } });
+      if (!tokenExists) return null;
+
+      return decoded;
+    } catch {
+      return null;
+    }
+  },
+
+  revoke: async (token: string) => {
+    await Token.deleteMany({ where: { token } });
+  },
+
+  fromRequest: async (request: Request) => {
+    const authHeader = request.headers.get("authorization");
+    if (!authHeader) return null;
+
+    const [, token] = authHeader.split(" ");
+    if (!token) return null;
+
+    return await jwt.verify(token);
+  },
+};

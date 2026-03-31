@@ -39,7 +39,8 @@ export const bearer = async ({ engine, model, identifierField, storage }: Props)
 
   const templates = {
     configAuth: engine.render("auth/bearer/config/auth", { storage }),
-    configJwt: engine.render("auth/bearer/config/jwt", { storage, lowerModel, idType, payloadIdParser }),
+    configJwtRedis: engine.render("auth/bearer/config/jwt-redis", { storage, lowerModel, idType, payloadIdParser }),
+    configJwtDatabase: engine.render("auth/bearer/config/jwt-database", { storage, lowerModel, idType, payloadIdParser }),
     middleware: engine.render("auth/bearer/middlewares/auth"),
     route: engine.render("auth/bearer/module/bearer.routes"),
     controllers: {
@@ -92,8 +93,8 @@ export const bearer = async ({ engine, model, identifierField, storage }: Props)
   fs.mkdirSync(path.join(process.cwd(), "modules/auth", "validations"), { recursive: true });
 
   // Create files
-  fs.writeFileSync(outputs.configAuth, await templates.configAuth); // NOVO
-  fs.writeFileSync(outputs.configJwt, await templates.configJwt);
+  fs.writeFileSync(outputs.configAuth, await templates.configAuth);
+  fs.writeFileSync(outputs.configJwt, storage === "redis" ? await templates.configJwtRedis : await templates.configJwtDatabase);
   fs.writeFileSync(outputs.middleware, await templates.middleware);
   fs.writeFileSync(outputs.module.route, await templates.route);
 
@@ -158,11 +159,11 @@ export const bearer = async ({ engine, model, identifierField, storage }: Props)
           console.error(colorize("#FF0000", "Failed to format schema.prisma."));
         }
 
-        console.log(colorize("#00c3ffff", `Don't forget to run 'bunx prisma migrate dev' or 'bunx prisma db push'!`));
+        console.log(colorize("#00c3ffff", `Don't forget to run 'bun migrate'!`));
       }
     }
   } else {
-    console.log(colorize("#00c3ffff", `Redis selected for token storage. Please ensure REDIS_URL is configured in your .env file.`));
+    console.log(colorize("#00c3ffff", `Please ensure Redis is configured in your .env file.`));
   }
 
   // Generated message

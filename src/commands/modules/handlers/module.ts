@@ -5,7 +5,7 @@ import type { TemplateEngine } from "@harpia/core";
 
 const module = async (engine: TemplateEngine) => {
   const name = await input({
-    message: "Module name",
+    message: "Module name (e.g., User)",
   });
 
   return actions.module({ engine, name });
