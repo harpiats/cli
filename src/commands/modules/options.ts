@@ -8,6 +8,7 @@ export const getOption = async (defaultOption?: string) => {
     choices: [
       { name: "Module", value: "module" },
       { name: "Controller", value: "controller" },
+      { name: "Middleware", value: "middleware" },
       { name: "Test", value: "test" },
       { name: "Factory", value: "factory" },
       { name: "Seed", value: "seed" },

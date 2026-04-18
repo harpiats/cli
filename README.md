@@ -3,7 +3,7 @@
 The official Command Line Interface (CLI) tool for the Harpia framework.
 
 ## Features
-- **Scaffolding**: Automatically generate modules, controllers, services, repositories, validations, tasks, and observers.
+- **Scaffolding**: Automatically generate modules, controllers, middlewares, services, repositories, validations, tasks, and observers.
 - **Workflow Management**: Start the development server with hot-reload, run tests, and format code.
 - **Database Introspection**: Run migrations, seed the database, and invoke Prisma Studio directly.
 
@@ -18,6 +18,11 @@ bun g controller api TestController
 Or you can use the CLI directly if installed or referenced via package scripts:
 ```bash
 bun harpia <command> [args]
+```
+
+To see all available commands and options, use the `--help` flag:
+```bash
+bun harpia --help
 ```
 
 ## Commands

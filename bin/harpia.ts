@@ -3,6 +3,7 @@ import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import Bun from "bun";
+import { colorize } from "@harpia/common";
 
 type Mode = "api" | "fullstack";
 
@@ -66,8 +67,48 @@ const testSequential = (targetPath = "modules") => {
   for (const file of testFiles) {
     try {
       execCommand(`bun test ${file}`);
-    } catch (_) {}
+    } catch (_) { }
   }
+};
+
+const printHelp = (): void => {
+  const cmd = (text: string) => colorize("#FFA500", text);
+  const dim = (text: string) => colorize("#888888", text);
+  const section = (text: string) => colorize("#FFFFFF", text);
+
+  console.log(`
+Usage: ${cmd("harpia")} ${dim("<command> [options]")}
+
+${section("Application")}
+  ${cmd("start")}              Start the application in production mode
+  ${cmd("dev")}                Start the application in development mode ${dim("(hot reload)")}
+
+${section("Scaffolding")}
+  ${cmd("generate")}           Interactively generate a new file
+                       ${dim("Available: module, controller, middleware,")}
+                       ${dim("test, factory, seed, task, validation, observer, setup")}
+
+${section("Database")}
+  ${cmd("migrate")}            Generate Prisma client and run pending migrations
+  ${cmd("deploy")}             Generate Prisma client and deploy migrations to production
+  ${cmd("seed")} ${dim("[name]")}        Run all seeders, or a specific one by name
+  ${cmd("studio")}             Open Prisma Studio
+
+${section("Quality")}
+  ${cmd("tests")} ${dim("[module]")}     Run tests for all modules, or a specific one
+    ${dim("--sequential")}     Run tests one file at a time ${dim("(avoids conflicts)")}
+  ${cmd("lint")} ${dim("[module]")}      Lint all modules, or a specific one
+
+${section("Options")}
+  ${cmd("--help")}, ${cmd("-h")}         Show this help message
+
+${section("Examples")}
+  ${dim("harpia dev")}
+  ${dim("harpia generate module")}
+  ${dim("harpia tests auth --sequential")}
+  ${dim("harpia seed UserSeeder")}
+  ${dim("harpia lint auth")}
+`);
 };
 
 export const run = (script: string, args: string[]): void => {
@@ -191,8 +232,13 @@ export const run = (script: string, args: string[]): void => {
 
 const [, , script, ...args] = process.argv;
 
-if (!script) {
-  console.log("No script provided");
+if (!script || script === "--help" || script === "-h") {
+  if (script === "--help" || script === "-h") {
+    printHelp();
+    process.exit(0);
+  }
+
+  console.log('No command provided. Run "harpia --help" to see available commands.');
   process.exit(1);
 }
 

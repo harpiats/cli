@@ -36,6 +36,7 @@ export const Generator = async () => {
 
   const generators = {
     factory: handlers.factory,
+    middleware: handlers.middleware,
     module: handlers.module,
     task: handlers.task,
     test: handlers.test,

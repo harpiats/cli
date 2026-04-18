@@ -1,0 +1,7 @@
+import type { Request, Response, NextFunction } from "@harpia/core";
+
+export const {{ camelCase(name) }} = async (req: Request, res: Response, next: NextFunction) => {
+  // Your middleware logic here
+
+  next();
+};
