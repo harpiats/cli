@@ -21,5 +21,6 @@ engine.registerPlugin("kebabCase", Utils.string.kebabCase);
 engine.registerPlugin("camelCase", Utils.string.camelCase);
 engine.registerPlugin("getIdTypeFromSchema", plugins.getIdTypeFromSchema);
 engine.registerPlugin("parseIdTypeFromSchema", plugins.parseIdTypeFromSchema);
+engine.registerPlugin("zodIdTypeFromSchema", plugins.zodIdTypeFromSchema);
 
 export { engine };

@@ -12,8 +12,8 @@ export async function update(request: Request, response: Response) {
     const parsedId: {{ getIdTypeFromSchema(singularize(pascalCase(name))) }} = {{ parseIdTypeFromSchema(singularize(pascalCase(name))) }}(id);
     const body = await request.json();
 
-    await validation.update(body);
-    const data = await service.update(parsedId, body);
+    const { body: validatedBody } = await validation.update({ id }, body);
+    const data = await service.update(parsedId, validatedBody);
 
     return ApiResponse.success(response, data);
   } catch (error: any) {

@@ -2,9 +2,9 @@ import { AppError } from "@harpia/common";
 import { Utils } from "@harpia/common";
 
 import { repository } from "../repositories";
-import type { SchemaType } from "../validations/create";
+import type { SchemaCreateBodyType } from "../validations/create";
 
-export async function create(data: SchemaType) {
+export async function create(data: SchemaCreateBodyType) {
   const query = await repository.create(data);
 
   if (!query) throw AppError.E_GENERIC_ERROR("Error trying to save data.");

@@ -1,16 +1,30 @@
 import { AppError } from "@harpia/common";
 import * as z from "zod";
-import { SchemaCreate } from "./create";
+import { SchemaCreateBody } from "./create";
 
-export const SchemaUpdate = SchemaCreate.pick({
-  // name: true,
-}).partial({});
+export const SchemaUpdateParams = z.object({
+  id: {{ zodIdTypeFromSchema(singularize(pascalCase(name))) }},
+});
 
-export type SchemaType = z.infer<typeof SchemaUpdate>;
+export const SchemaUpdateBody = SchemaCreateBody
+  .omit({})
+  .partial()
+  .extend({})
+  .strict()
+  .refine(
+    (data) => Object.keys(data).length > 0,
+    { message: "No data provided for update." }
+  );
 
-export async function update(data: SchemaType) {
+export type SchemaUpdateParamsType = z.infer<typeof SchemaUpdateParams>;
+export type SchemaUpdateBodyType = z.infer<typeof SchemaUpdateBody>;
+
+export async function update(paramsData: unknown, bodyData: unknown) {
   try {
-    SchemaUpdate.parse(data);
+    const params = await SchemaUpdateParams.parseAsync(paramsData);
+    const body = await SchemaUpdateBody.parseAsync(bodyData);
+
+    return { params, body };
   } catch (error) {
     if (error instanceof z.ZodError || error instanceof AppError) {
       throw error;

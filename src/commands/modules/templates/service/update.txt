@@ -2,10 +2,10 @@ import { AppError } from "@harpia/common";
 import { service } from ".";
 import { repository } from "../repositories";
 
-import type { SchemaType } from "../validations/update";
+import type { SchemaUpdateBodyType } from "../validations/update";
 import type { {{ singularize(pascalCase(name)) }}Type } from "app/database";
 
-export async function update(id: {{ singularize(pascalCase(name)) }}Type["id"], data: SchemaType) {
+export async function update(id: {{ singularize(pascalCase(name)) }}Type["id"], data: SchemaUpdateBodyType) {
   await service.show(id);
 
   const result = await repository.update(id, data);
