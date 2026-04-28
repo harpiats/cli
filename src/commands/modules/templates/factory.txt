@@ -1,4 +1,4 @@
-import { Factory } from "@harpia/common";
+import { Factory } from "@harpiats/common";
 import { {{ singularize(pascalCase(name)) }} } from "..";
 
 const {{ singularize(pascalCase(name)) }}Factory = new Factory().define({{ singularize(pascalCase(name)) }}, (faker) => {

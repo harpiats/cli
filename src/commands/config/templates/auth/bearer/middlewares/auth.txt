@@ -1,7 +1,7 @@
-import { AppError, ApiResponse } from "@harpia/common";
+import { AppError, ApiResponse } from "@harpiats/common";
 import { jwt } from "../config/jwt";
 
-import type { NextFunction, Request, Response } from "@harpia/core";
+import type { NextFunction, Request, Response } from "@harpiats/core";
 
 export const isAuthenticated = async (request: Request, response: Response, next: NextFunction) => {
   try {

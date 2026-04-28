@@ -1,5 +1,5 @@
 import { jwt } from "app/config/jwt";
-import { AppError } from "@harpia/common";
+import { AppError } from "@harpiats/common";
 import { validation } from "../validations";
 
 import type { SchemaType } from "../validations/create";

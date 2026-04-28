@@ -3,7 +3,7 @@ import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import Bun from "bun";
-import { colorize } from "@harpia/common";
+import { colorize } from "@harpiats/common";
 
 type Mode = "api" | "fullstack";
 

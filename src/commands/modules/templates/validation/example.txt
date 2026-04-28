@@ -1,4 +1,4 @@
-import { AppError } from "@harpia/common";
+import { AppError } from "@harpiats/common";
 import * as z from "zod";
 
 export const Schema = z.object({

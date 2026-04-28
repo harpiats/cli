@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { colorize, Utils } from "@harpia/common";
+import { colorize, Utils } from "@harpiats/common";
 import type { Props } from "./types/props";
 
 export const seed = async ({ engine, name }: Props) => {

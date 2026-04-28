@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { Utils, colorize } from "@harpia/common";
-import type { TemplateEngine } from "@harpia/core";
+import { Utils, colorize } from "@harpiats/common";
+import type { TemplateEngine } from "@harpiats/core";
 
 export type Props = {
   engine: TemplateEngine;

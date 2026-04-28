@@ -1,5 +1,5 @@
-import type { Request, Response } from "@harpia/core";
-import { ApiResponse } from "@harpia/common";
+import type { Request, Response } from "@harpiats/core";
+import { ApiResponse } from "@harpiats/common";
 import { service } from "../services";
 import { validation } from "../validations";
 

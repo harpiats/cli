@@ -1,5 +1,5 @@
 import { input } from "@inquirer/prompts";
-import type { TemplateEngine } from "@harpia/core";
+import type { TemplateEngine } from "@harpiats/core";
 import { actions } from "../actions";
 
 const seed = async (engine: TemplateEngine) => {

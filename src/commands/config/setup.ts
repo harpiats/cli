@@ -1,7 +1,7 @@
 import path from "node:path";
 
-import { Utils } from "@harpia/common";
-import { TemplateEngine } from "@harpia/core";
+import { Utils } from "@harpiats/common";
+import { TemplateEngine } from "@harpiats/core";
 
 const templatesPath = path.join(__dirname, "templates");
 const engine = new TemplateEngine({

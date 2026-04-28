@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import { Utils, colorize } from "@harpia/common";
+import { Utils, colorize } from "@harpiats/common";
 import type { Props } from "./types/props";
 
 type Mode = "api" | "fullstack";

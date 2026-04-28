@@ -1,5 +1,5 @@
-import { AppError } from "@harpia/common";
-import { Utils } from "@harpia/common";
+import { AppError } from "@harpiats/common";
+import { Utils } from "@harpiats/common";
 
 import { repository } from "../repositories";
 import type { SchemaCreateBodyType } from "../validations/create";

@@ -1,4 +1,4 @@
-# @harpia/cli
+# @harpiats/cli
 
 The official Command Line Interface (CLI) tool for the Harpia framework.
 

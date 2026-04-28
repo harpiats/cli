@@ -1,7 +1,7 @@
 import { input, select } from "@inquirer/prompts";
 import { actions } from "../actions";
 
-import type { TemplateEngine } from "@harpia/core";
+import type { TemplateEngine } from "@harpiats/core";
 
 const bearer = async (engine: TemplateEngine) => {
   const model = await input({

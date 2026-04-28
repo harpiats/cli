@@ -1,6 +1,6 @@
-import type { Request, Response } from "@harpia/core";
+import type { Request, Response } from "@harpiats/core";
 
-import { ApiResponse } from "@harpia/common";
+import { ApiResponse } from "@harpiats/common";
 
 export async function create(request: Request, response: Response) {
   try {

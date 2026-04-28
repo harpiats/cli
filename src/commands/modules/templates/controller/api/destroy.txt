@@ -1,6 +1,6 @@
-import type { Request, Response } from "@harpia/core";
+import type { Request, Response } from "@harpiats/core";
 
-import { ApiResponse } from "@harpia/common";
+import { ApiResponse } from "@harpiats/common";
 import { service } from "../services";
 
 import type { {{ singularize(pascalCase(name)) }}Type } from "app/database";

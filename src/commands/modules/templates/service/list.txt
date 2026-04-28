@@ -1,5 +1,5 @@
 import { {{ singularize(pascalCase(name)) }} } from "app/database";
-import { paginate } from "@harpia/common";
+import { paginate } from "@harpiats/common";
 import { repository } from "../repositories";
 
 export async function list(page = 1, filter = "") {

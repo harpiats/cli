@@ -1,4 +1,4 @@
-import { Router } from "@harpia/core";
+import { Router } from "@harpiats/core";
 import { isAuthenticated } from "app/middlewares/auth";
 import { controllers } from "./controllers";
 

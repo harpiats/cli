@@ -1,8 +1,8 @@
-import type { Request, Response } from "@harpia/core";
+import type { Request, Response } from "@harpiats/core";
 
 import { session } from "app/config/session";
-import { ApiResponse } from "@harpia/common";
-import { AppError } from "@harpia/common";
+import { ApiResponse } from "@harpiats/common";
+import { AppError } from "@harpiats/common";
 
 export async function show(request: Request, response: Response) {
   try {
